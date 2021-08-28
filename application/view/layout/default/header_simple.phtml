@@ -1,0 +1,20 @@
+<div class="header-wrapper row col-lg-12">
+    <div class="row col-lg-8">
+        <h1><a href='/'>GROCERY</a></h1>
+    </div>
+    <div class="col-lg-4 row">
+        <div class='col-lg-6 row'>
+            <a href="/cart/index">
+                <button type="button" class="btn btn-warning">View cart</button> 
+            </a>
+        </div>
+        <div class='col-lg-6 row'>
+            <a href="/cart/checkout">            
+                <button type="button" class="btn btn-info">Checkout</button>
+            </a>
+        </div>
+        <div>(Total:<b id="cart-total"><?= $this->Session->get('cart_total') ?></b>)</div>
+    </div>
+
+</div>
+<hr/>

@@ -1,0 +1,27 @@
+<div> R E C E I P T</div>
+
+<table class="row col-lg-12">
+    <tr class="col-lg-7">
+        <th class="col-lg-3">Product:</th>
+        <th class="col-lg-3">Quantity:</th>
+        <th class="col-lg-3">Single price:</th>
+        <th class="col-lg-3">Total:</th>
+    </tr>
+
+    <?php foreach ($this->view->products as $product): ?>
+        <tr class="col-lg-7">
+            <td class="col-lg-3"><?= $product['name'] ?></td>
+            <td class="col-lg-3"><?= $product['quantity'] ?></td>
+            <td class="col-lg-3"><?= $product['price'] ?></td>
+            <td class="col-lg-3">Total:</td>
+
+        </tr>
+    <?php endforeach; ?>
+</table>
+--------------------------------------------
+<div><b>Total: <?= $this->view->cart_total; ?></b></div>
+
+
+<div class='row col-lg-4'>
+    <button type="button" class="btn btn-primary">Finish order</button>
+</div>
