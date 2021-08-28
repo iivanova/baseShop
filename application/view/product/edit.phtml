@@ -1,0 +1,43 @@
+
+<div class="products row col-lg-12">
+    <?php $product = $this->view->product; ?>
+    <div class="form-group col-lg-12">
+        <img src="/img/default.jpg" width="550px"/>
+    </div>
+
+    <form class="form-horizontal" method="POST" onsubmit="return validateForm()" >
+        <fieldset>
+            <div class="form-group col-lg-12">
+                <label for="title" class="col-lg-6 control-label ">Product:</label>
+                <div class="col-lg-6 ">
+                    <input class="form-control "  name="data[product][name]" id="title" value="<?= $product['name'] ?>"/>
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label for="title" class="col-lg-6 control-label ">Price:</label>
+                <div class="col-lg-6 ">
+                    <input class="form-control "  name="data[product][price]" id="price" value="<?= $product['price'] ?>"/>
+                </div>
+            </div>
+
+            <div class="form-group col-lg-12">
+                <label for="title" class="col-lg-6 control-label ">Items count:</label>
+                <div class="col-lg-6 ">
+                    <input class="form-control "  name="data[product_discount][items_count]" id="items_count" value="<?= $product['items_count'] ?>"/>
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <label for="title" class="col-lg-6 control-label ">Total reduced price:</label>
+                <div class="col-lg-6 ">
+                    <input class="form-control "  name="data[product_discount][reduced_price]" id="reduced_price" value="<?= $product['reduced_price'] ?>"/>
+                </div>
+            </div>
+
+            <div class="form-group col-lg-12 p-3">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-danger">Delete</button>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

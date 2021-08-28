@@ -90,4 +90,10 @@ class CartModel extends BaseController
         return $this->db->query($sql, [$data['cartId'], $data['productId']]);
     }
 
+    public function updateCartStatus($cartId, $status)
+    {
+        $sql = ' UPDATE cart set `status`=? WHERE id=?';
+        $this->db->exec($sql, [$status, $cartId]);
+    }
+
 }

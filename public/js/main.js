@@ -1,11 +1,19 @@
 $(document).ready(function ()
 {
-    var updateTotal = function(data){
-        
+    function validateForm() {
+        let x = document.forms["myForm"]["fname"].value;
+        if (x == "") {
+            alert("Name must be filled out");
+            return false;
+        }
+    }
+
+    var updateTotal = function (data) {
+
 //        console.log(data);
 //        $("#cart-total").html(data);
         location.reload();
-        
+
     }
     var addUrl = '/cart/add_product/';
     $('.add-product').on('click', function (event) {
@@ -17,7 +25,7 @@ $(document).ready(function ()
             success: updateTotal
         });
     })
-    
+
     var removeUrl = '/cart/remove_product/';
     $('.remove-product').on('click', function (event) {
         let data = {'productId': this.getAttribute('data-value')};
@@ -28,6 +36,6 @@ $(document).ready(function ()
             success: updateTotal
         });
     })
-    
-    
+
+
 });

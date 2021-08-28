@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 class MySession {
 
     // THE only instance of the class
@@ -85,16 +79,6 @@ class MySession {
     public function remove($name) {
         unset($_SESSION[$name]);
     }
-
-    public function login($login = 1){
-        if (isset($_SESSION)){
-            $_SESSION["is_user_logged_in"] = $login;
-        }
-    }
-    public function isLogged(){
-        return isset($_SESSION["is_user_logged_in"]) ? $_SESSION["is_user_logged_in"] : false;
-    }
-    
     public function getSessionId() {
         return session_id();
     }

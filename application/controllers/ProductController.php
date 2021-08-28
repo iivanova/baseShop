@@ -11,10 +11,16 @@ class ProductController extends BaseController
         $this->productModel = $this->loadModel('Product');
     }
 
-    public function viewAction()
+    public function editAction()
     {
         if (isset($_GET['id'])) {
-            $this->product = $this->productModel->getProduct($_GET['id']);
+            
+            if(!empty($_POST['data'])){
+                $data = $_POST['data'];
+                $data['id'] = $_GET['id'];
+                $this->productModel->editProduct($data);
+            }
+            $this->view->product = $this->productModel->getProduct($_GET['id']);
         } else {
             $this->redirect('/');
         }
@@ -69,7 +75,7 @@ class ProductController extends BaseController
 
     public function checkoutAction()
     {
-
+        
         $this->view->products = $this->cartModel->getCartItems($this->cartId);
         $this->view->cart_total = $this->calculateCartTotal();
     }

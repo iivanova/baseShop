@@ -4636,3 +4636,31 @@
 2021-08-28 18:53:25 [ERROR] (function run : URL: /public/lib/img/favicon.png ): request controller doesn`t exist
 
 2021-08-28 20:10:58 [ERROR] (function run : URL: /favicon.ico ): request controller doesn`t exist
+
+2021-08-28 21:50:40 [ERROR] (function run : URL: /favicon.ico ): request controller doesn`t exist
+
+2021-08-28 23:26:53 [ERROR] (function run : URL: /favicon.ico ): request controller doesn`t exist
+
+2021-08-29 00:08:36 [ERROR] (function run : URL: /product/view?id=3 ): request action doesn`t exist
+
+2021-08-29 00:34:33 [ERROR] (function run : URL: /product/view?id=3 ): request action doesn`t exist
+
+2021-08-29 00:37:24 [ERROR] (function run : URL: /product/view?id=4 ): request action doesn`t exist
+
+2021-08-29 00:41:19 [ERROR] (function run : URL: /favicon.ico ): request controller doesn`t exist
+
+2021-08-29 00:42:13 [ERROR] (function run : URL: /favicon.ico ): request controller doesn`t exist
+
+2021-08-29 00:42:35 [ERROR] (function run : URL: /favicon.ico ): request controller doesn`t exist
+
+2021-08-29 00:42:36 [ERROR] (function run : URL: /favicon.ico ): request controller doesn`t exist
+
+2021-08-29 00:42:36 [ERROR] (function run : URL: /favicon.ico ): request controller doesn`t exist
+
+2021-08-29 00:42:36 [ERROR] (function run : URL: /favicon.ico ): request controller doesn`t exist
+
+2021-08-29 00:43:05 [ERROR] (function run : URL: /favicon.ico ): request controller doesn`t exist
+
+2021-08-29 00:43:05 [ERROR] (function run : URL: /favicon.ico ): request controller doesn`t exist
+
+2021-08-29 00:43:05 [ERROR] (function run : URL: /favicon.ico ): request controller doesn`t exist

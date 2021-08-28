@@ -24,7 +24,6 @@ class CartController extends BaseController
         $this->getCart();
     }
 
-
     public function indexAction()
     {
         $this->view->products = $this->cartModel->getCartItems($this->cartId);
@@ -41,43 +40,51 @@ class CartController extends BaseController
             $this->cartId = $this->cartModel->initCart();
             $this->Session->set(self::CART_KEY, $this->cartId);
         }
-
     }
 
-    public function calculateCartTotal(){
+    public function calculateCartTotal()
+    {
 
         $total = $this->cartModel->calculateTotal($this->cartId);
         $this->Session->set(self::CART_TOTAL, $total);
         return $total;
-
     }
-    
+
     public function getCartFromSession()
     {
         return $this->Session->get(self::CART_KEY);
     }
 
+    public function add_productAction()
+    {
 
-    public function add_productAction(){
-        
         $data = $_POST;
         $data['cartId'] = $this->cartId;
         $this->cartModel->addToCart($data);
-        exit ($this->calculateCartTotal());
+        exit($this->calculateCartTotal());
     }
-    public function remove_productAction(){
-        
+
+    public function remove_productAction()
+    {
+
         $data = $_POST;
         $data['cartId'] = $this->cartId;
         $this->cartModel->removeFromCart($data);
-        exit ($this->calculateCartTotal());
+        exit($this->calculateCartTotal());
     }
 
+    public function checkoutAction()
+    {
+        if (isset($_GET['finish_checkout']) && $_GET['finish_checkout'] == 1) {
+            $this->cartModel->updateCartStatus($this->cartId, 1);
+            $this->Session->destroy();
+            $this->view->message = "Thank you for your purchase";
+        }
 
-    public function checkoutAction(){
-        
         $this->view->products = $this->cartModel->getCartItems($this->cartId);
         $this->view->cart_total = $this->calculateCartTotal();
+    
         
     }
+
 }

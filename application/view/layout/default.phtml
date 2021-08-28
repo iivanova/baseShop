@@ -21,10 +21,6 @@
             <?php
             echo $this->render('default/header_simple.phtml', 'view/layout');
             echo $this->viewContent;
-
-            if ($this->Session->isLogged()) {
-                echo $this->render('default/footer.phtml', 'layout');
-            }
             ?>
         </div>
 

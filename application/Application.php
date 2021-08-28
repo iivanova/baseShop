@@ -1,6 +1,5 @@
 <?php
 
-//namespace \App;
 
 /**
  * Description of Application

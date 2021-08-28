@@ -24,7 +24,11 @@ abstract class BaseController
             $this->_request_method = $GLOBALS['_request_method'];
         }
 
-        $this->db = new DBManager();
+        $this->db = new DBManager([
+            'db_username' => $GLOBALS['config']['db_username'],
+            'db_password' => $GLOBALS['config']['db_password'],
+            'db_pdo' => $GLOBALS['config']['db_pdo'],
+        ]);
 
         $this->Session = Application::$staticSession;
         $this->view = new stdClass();
@@ -43,7 +47,6 @@ abstract class BaseController
 
         return $this->models[$modelName];
     }
-
 
     public function getViewData()
     {
@@ -75,7 +78,6 @@ abstract class BaseController
         return false;
     }
 
-
     protected function redirect($url)
     {
 
@@ -104,6 +106,5 @@ abstract class BaseController
     {
         return $this->Session;
     }
-    
 
 }
