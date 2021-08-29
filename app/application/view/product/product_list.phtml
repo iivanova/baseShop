@@ -1,17 +1,20 @@
 
 <div class="products row col-lg-12">
-    <?php foreach ($this->view->products as $product): ?>
+    <?php 
+    foreach ($this->view->products as $product): ?>
         <div class="col-lg-3 p-3">
             <div><img src="/img/default.jpg" width="150px"/></div>
             <div>Product: <?= $product['name'] ?></div>
             <div>Price: <?= $product['price'] ?></div>
+            
+            
             <?php if(isset($product['quantity']) && $product['quantity']>0):?>
             <div>Qty:<?= $product['quantity']; ?></div>
             <?php endif; ?>
             <div>
                 <button type="button" class="btn btn-success add-product" data-value="<?= $product['id']; ?>">+</button>
                 <button type="button" class="btn btn-danger remove-product" data-value="<?= $product['id']; ?>">-</button>
-                <a href="/product/edit?id=<?= $product['id']; ?>">edit</a>
+                <a href="/product/add_edit?id=<?= $product['id']; ?>">edit</a>
             </div>
         </div>
     <?php endforeach; ?>

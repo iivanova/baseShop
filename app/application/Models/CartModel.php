@@ -15,10 +15,13 @@ class CartModel
     public function getCartItems($cartId)
     {
 
-        $sql = "SELECT p.*, cp.quantity FROM cart c"
-                . " LEFT JOIN cart_products cp on cp.cart_id=c.id "
+//        $sql = "SELECT p.*, cp.quantity FROM cart c"
+//                . " LEFT JOIN cart_products cp on cp.cart_id=c.id "
+//                . " LEFT JOIN product p on p.id=cp.product_id "
+//                . " WHERE c.id=?";
+        $sql = "SELECT p.*, cp.quantity FROM cart_products cp"
                 . " LEFT JOIN product p on p.id=cp.product_id "
-                . " WHERE c.id=?";
+                . " WHERE cp.cart_id=?";
         $items = $this->db->query($sql, [$cartId]);
         return $items;
     }

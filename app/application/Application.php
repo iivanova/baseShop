@@ -4,7 +4,6 @@ namespace App;
 
 use App\Helpers\MySession;
 use App\Helpers\MyLogger;
-
 use App\Controllers\BaseController;
 use App\Controllers\CartController;
 use App\Controllers\IndexController;
@@ -99,28 +98,6 @@ class Application
         }
     }
 
-//    private function loadControllers()
-//    {
-//        include_once dirname(__FILE__) . "/controllers/BaseController.php";
-//        foreach (glob(dirname(__FILE__) . "/controllers/*.php") as $filename) {
-//            include_once $filename;
-//        }
-//    }
-//
-//    private function loadHelpers()
-//    {
-//        include_once dirname(__FILE__) . "/helpers/MyLogger.php";
-//        include_once dirname(__FILE__) . "/helpers/MySession.php";
-//    }
-//
-//    private function loadServices()
-//    {
-//        include dirname(__FILE__) . "/model/DBManager.php";
-//        foreach (glob(dirname(__FILE__) . "/model/*Model.php") as $filename) {
-//            include_once $filename;
-//        }
-//    }
-
     public function run()
     {
 
@@ -152,8 +129,8 @@ class Application
                 self::$staticSession = MySession::getInstance();
                 $this->Session = self::$staticSession;
 
-                $controllerName = 'App\\Controllers\\'.ucfirst($this->_request_controller) . "Controller";
-                
+                $controllerName = 'App\\Controllers\\' . ucfirst($this->_request_controller) . "Controller";
+
 //               var_dump($controllerName);
                 $actionName = $this->_request_action . "Action";
 
@@ -221,7 +198,6 @@ class Application
         ob_end_clean();
         return $view;
     }
-
 
     private function setDefaultRoute()
     {

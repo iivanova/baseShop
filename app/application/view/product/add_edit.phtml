@@ -7,35 +7,45 @@
 
     <form class="form-horizontal" method="POST" onsubmit="return validateForm()" >
         <fieldset>
+            <legend class="form-group col-lg-12">
+                Product info
+            </legend>
             <div class="form-group col-lg-12">
                 <label for="title" class="col-lg-6 control-label ">Product:</label>
                 <div class="col-lg-6 ">
-                    <input class="form-control "  name="data[product][name]" id="title" value="<?= $product['name'] ?>"/>
+                    <input class="form-control "  name="data[name]" id="title" value="<?= $product['name'] ?>"/>
                 </div>
             </div>
             <div class="form-group col-lg-12">
                 <label for="title" class="col-lg-6 control-label ">Price:</label>
                 <div class="col-lg-6 ">
-                    <input class="form-control "  name="data[product][price]" id="price" value="<?= $product['price'] ?>"/>
+                    <input class="form-control "  name="data[price]" id="price" value="<?= $product['price'] ?>"/>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend class="form-group col-lg-12">
+                Discount schema
+            </legend>
+            <div class="form-group col-lg-12">
+                <label for="title" class="col-lg-6 control-label ">Items count:</label>
+                <div class="col-lg-6 ">
+                    <input class="form-control "  name="data[items_count]" id="items_count" value="<?= $product['items_count'] ?>"/>
                 </div>
             </div>
 
             <div class="form-group col-lg-12">
-                <label for="title" class="col-lg-6 control-label ">Items count:</label>
-                <div class="col-lg-6 ">
-                    <input class="form-control "  name="data[product_discount][items_count]" id="items_count" value="<?= $product['items_count'] ?>"/>
-                </div>
-            </div>
-            <div class="form-group col-lg-12">
                 <label for="title" class="col-lg-6 control-label ">Total reduced price:</label>
                 <div class="col-lg-6 ">
-                    <input class="form-control "  name="data[product_discount][reduced_price]" id="reduced_price" value="<?= $product['reduced_price'] ?>"/>
+                    <input class="form-control "  name="data[reduced_price]" id="reduced_price" value="<?= $product['reduced_price'] ?>"/>
                 </div>
             </div>
 
             <div class="form-group col-lg-12 p-3">
                 <button type="submit" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <?php if (!empty($product['id'])): ?>
+                    <a href="/product/delete?id=<?= $product['id'] ?>"><button type="button" class="btn btn-danger">Delete</button></a>
+                <?php endif; ?>
             </div>
 
         </fieldset>

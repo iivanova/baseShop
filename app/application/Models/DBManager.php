@@ -6,7 +6,8 @@ class DBManager
 
     private $config;
     private $pdo;
-
+    private $lastInsertId;
+    
     public function __construct($conf)
     {
 
@@ -34,21 +35,25 @@ class DBManager
     public function exec($sql, $params = [])
     {
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
+        $res = $stmt->execute($params);
+        
         return $stmt;
     }
 
     public function query($sql, $params = [])
     {
-
         $stmt = $this->exec($sql, $params);
         return $stmt->fetchAll();
     }
 
     public function insert($sql, $params = [])
     {
-        $stmt = $this->exec($sql, $params);
-        return $this->pdo->lastInsertId();
+        $this->exec($sql, $params);
+        $this->lastInsertId = $this->pdo->lastInsertId();
+        return $this->lastInsertId;
+    }
+    public function lastInsertId(){
+        return $this->lastInsertId;
     }
 
 }

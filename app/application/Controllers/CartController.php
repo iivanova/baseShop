@@ -27,7 +27,6 @@ class CartController extends BaseController
     {
         $this->view->products = $this->cartModel->getCartItems($this->cartId);
         $this->view->cart_total = $this->calculateCartTotal();
-//        $this->requireLogin();    
     }
 
     public function getCart()
@@ -77,7 +76,7 @@ class CartController extends BaseController
         if (isset($_GET['finish_checkout']) && $_GET['finish_checkout'] == 1) {
             $this->cartModel->updateCartStatus($this->cartId, 1);
             $this->Session->destroy();
-            $this->view->message = "Thank you for your purchase";
+            $this->view->message = "Your cart is checkouted. Thank you for your purchase";
         }
 
         $this->view->products = $this->cartModel->getCartItems($this->cartId);

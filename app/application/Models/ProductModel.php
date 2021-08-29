@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 class ProductModel
@@ -22,48 +23,64 @@ class ProductModel
 
     public function getProduct($id)
     {
-        $sql = "SELECT * FROM {$this->tableName} p"
+        $sql = "SELECT p.*, ps.items_count, ps.reduced_price FROM {$this->tableName} p"
                 . " LEFT JOIN product_discounts ps on ps.product_id = p.id WHERE p.id=?";
 
         $item = $this->db->query($sql, [$id]);
         return (isset($item[0])) ? $item[0] : [];
     }
 
-    public function validateData($data, $key)
+    private function validateData($data, $keys)
     {
         $errors = [];
-        foreach ($data[$key] as $k => $v) {
-            if (empty($v)) {
+        foreach ($data as $k => $v) {
+            if (in_array($k, $keys) && empty($v)) {
                 $errors[$k] = 'Empty field';
             }
         }
         return $errors;
     }
 
-    public function editProduct($data)
+    public function addEditProduct($data)
     {
-        $errors = $this->validateData($data, 'product');
+        $errors = $this->validateData($data, ['name', 'price']);
         if (empty($errors)) {
-            $sql = " update product set name=?, price=? where id=?";
-            $this->db->query($sql, [$data['product']['name'], (int) $data['product']['price'], (int) $data['id']]);
+            $sql = "insert into product set name=?, price=? , id=? ON DUPLICATE KEY UPDATE name=?, price=?";
+            $this->db->insert($sql, [$data['name'], (int) $data['price'], (int) $data['id'], $data['name'], (int) $data['price']]);
+
+            if ($data['id'] == NULL)
+                $data['id'] = $this->db->lastInsertId();
         }
-        if (isset($data['product_discount'])) {
+        if($data['id'])
             $this->updateProductDiscount($data);
-        }
+        return $data['id'];
     }
 
     public function updateProductDiscount($data)
     {
-        $pd = isset($data['product_discount']) ? $data['product_discount'] : [];
-        
-        if (!empty($pd['items_count']) && !empty($pd['reduced_price'])) {
+        if (!empty($data['items_count']) && !empty($data['reduced_price'])) {
             $sql = "INSERT INTO product_discounts SET product_id = ?, items_count=?,reduced_price=? "
                     . "ON DUPLICATE KEY UPDATE items_count=?,reduced_price=? ";
-            $this->db->exec($sql, [$data['id'], $pd['items_count'], $pd['reduced_price'], $pd['items_count'], $pd['reduced_price']]);
+            $this->db->exec($sql, [$data['id'], $data['items_count'], $data['reduced_price'], $data['items_count'], $data['reduced_price']]);
         } else {
             $sql = "DELETE  FROM product_discounts WHERE product_id=?";
             $this->db->exec($sql, [$data['id']]);
         }
     }
 
+    public function deleteProduct($id){
+
+        $sql = "DELETE FROM product WHERE id =?";
+        $this->db->exec($sql,[$id]);
+    }
+    public function deleteProductDiscount($id){
+
+        $sql = "DELETE FROM product_discount WHERE product_id=?";
+        $this->db->exec($sql,[$id]);
+    }
+    public function deleteProductFromCart($id){
+
+        $sql = "DELETE FROM cart_products WHERE product_id=?";
+        $this->db->exec($sql,[$id]);
+    }
 }
