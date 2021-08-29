@@ -8,6 +8,7 @@ use App\Controllers\BaseController;
 use App\Controllers\CartController;
 use App\Controllers\IndexController;
 use App\Controllers\ProductController;
+use App\Controllers\TestContorller;
 
 /**
  * Description of Application

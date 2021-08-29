@@ -1,13 +1,10 @@
 
 <div class="products row col-lg-12">
-    <?php 
-    foreach ($this->view->products as $product): ?>
-        <div class="col-lg-3 p-3">
+    <?php foreach ($this->view->products as $product): ?>
+        <div class="col-lg-3 p-3 product-item">
             <div><img src="/img/default.jpg" width="150px"/></div>
-            <div>Product: <?= $product['name'] ?></div>
-            <div>Price: <?= $product['price'] ?></div>
-            
-            
+            <div product-item-name="1">Product: <?= $product['name'] ?></div>
+            <div product-item-price="1">Price: <?= $product['price'] ?></div>
             <?php if(isset($product['quantity']) && $product['quantity']>0):?>
             <div>Qty:<?= $product['quantity']; ?></div>
             <?php endif; ?>
