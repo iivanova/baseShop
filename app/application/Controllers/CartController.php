@@ -1,30 +1,33 @@
 <?php
-namespace App\Controllers\ProductController;
 
-class ProductController extends BaseController
+namespace App\Controllers;
+
+use App\Controllers\BaseController;
+
+class CartController extends BaseController
 {
 
+    const CART_KEY = 'cart_id';
+    const CART_TOTAL = 'cart_total';
+
+    private $cartModel;
     private $productModel;
+    private $cartId;
 
     public function __construct()
     {
+        
         parent::__construct();
+        $this->cartModel = $this->loadModel('Cart');
         $this->productModel = $this->loadModel('Product');
+        $this->getCart();
     }
 
-    public function editAction()
+    public function indexAction()
     {
-        if (isset($_GET['id'])) {
-            
-            if(!empty($_POST['data'])){
-                $data = $_POST['data'];
-                $data['id'] = $_GET['id'];
-                $this->productModel->editProduct($data);
-            }
-            $this->view->product = $this->productModel->getProduct($_GET['id']);
-        } else {
-            $this->redirect('/');
-        }
+        $this->view->products = $this->cartModel->getCartItems($this->cartId);
+        $this->view->cart_total = $this->calculateCartTotal();
+//        $this->requireLogin();    
     }
 
     public function getCart()
@@ -51,11 +54,6 @@ class ProductController extends BaseController
         return $this->Session->get(self::CART_KEY);
     }
 
-    public function user_loginAction()
-    {
-        echo "Please log in";
-    }
-
     public function add_productAction()
     {
 
@@ -76,9 +74,16 @@ class ProductController extends BaseController
 
     public function checkoutAction()
     {
-        
+        if (isset($_GET['finish_checkout']) && $_GET['finish_checkout'] == 1) {
+            $this->cartModel->updateCartStatus($this->cartId, 1);
+            $this->Session->destroy();
+            $this->view->message = "Thank you for your purchase";
+        }
+
         $this->view->products = $this->cartModel->getCartItems($this->cartId);
         $this->view->cart_total = $this->calculateCartTotal();
+    
+        
     }
 
 }

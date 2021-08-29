@@ -1,5 +1,10 @@
 <?php
-namespace App\Controllers\BaseController;
+namespace App\Controllers;
+
+use App\Models\DBManager;
+use App\Models\CartModel;
+use App\Models\ProductModel;
+use App\Application;
 
 abstract class BaseController
 {
@@ -25,25 +30,25 @@ abstract class BaseController
             $this->_request_method = $GLOBALS['_request_method'];
         }
 
-        $this->db = new DBManager([
+        $this->db = new \App\Models\DBManager([
             'db_username' => $GLOBALS['config']['db_username'],
             'db_password' => $GLOBALS['config']['db_password'],
             'db_pdo' => $GLOBALS['config']['db_pdo'],
         ]);
 
         $this->Session = Application::$staticSession;
-        $this->view = new stdClass();
+        $this->view = new \stdClass();
         $this->view->pageTitle = '';
         $this->view->faviconPath = '';
     }
 
     public function loadModel($modelName)
     {
-
+        
         if (isset($this->models[$modelName]))
             return $this->models[$modelName];
 
-        $model = $modelName . 'Model';
+        $model = 'App\\Models\\'.$modelName . 'Model';
         $this->models[$modelName] = new $model($this->db);
 
         return $this->models[$modelName];

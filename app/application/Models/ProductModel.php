@@ -1,5 +1,5 @@
 <?php
-namespace App\Models\DBManager;
+namespace App\Models;
 
 class ProductModel
 {

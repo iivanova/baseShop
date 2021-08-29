@@ -1,6 +1,15 @@
 <?php
 
-namespace App\Application;
+namespace App;
+
+use App\Helpers\MySession;
+use App\Helpers\MyLogger;
+
+use App\Controllers\BaseController;
+use App\Controllers\CartController;
+use App\Controllers\IndexController;
+use App\Controllers\ProductController;
+
 /**
  * Description of Application
  *
@@ -90,27 +99,27 @@ class Application
         }
     }
 
-    private function loadControllers()
-    {
-        include_once dirname(__FILE__) . "/controllers/BaseController.php";
-        foreach (glob(dirname(__FILE__) . "/controllers/*.php") as $filename) {
-            include_once $filename;
-        }
-    }
-
-    private function loadHelpers()
-    {
-        include_once dirname(__FILE__) . "/helpers/MyLogger.php";
-        include_once dirname(__FILE__) . "/helpers/MySession.php";
-    }
-
-    private function loadServices()
-    {
-        include dirname(__FILE__) . "/model/DBManager.php";
-        foreach (glob(dirname(__FILE__) . "/model/*Model.php") as $filename) {
-            include_once $filename;
-        }
-    }
+//    private function loadControllers()
+//    {
+//        include_once dirname(__FILE__) . "/controllers/BaseController.php";
+//        foreach (glob(dirname(__FILE__) . "/controllers/*.php") as $filename) {
+//            include_once $filename;
+//        }
+//    }
+//
+//    private function loadHelpers()
+//    {
+//        include_once dirname(__FILE__) . "/helpers/MyLogger.php";
+//        include_once dirname(__FILE__) . "/helpers/MySession.php";
+//    }
+//
+//    private function loadServices()
+//    {
+//        include dirname(__FILE__) . "/model/DBManager.php";
+//        foreach (glob(dirname(__FILE__) . "/model/*Model.php") as $filename) {
+//            include_once $filename;
+//        }
+//    }
 
     public function run()
     {
@@ -135,18 +144,20 @@ class Application
                     $this->setDefaultRoute();
                 }
 
-                $this->loadControllers();
-
-                $this->loadHelpers();
-                $this->loadServices();
+//                $this->loadControllers();
+//
+//                $this->loadHelpers();
+//                $this->loadServices();
 
                 self::$staticSession = MySession::getInstance();
                 $this->Session = self::$staticSession;
 
-                $controllerName = $this->_request_controller . "Controller";
+                $controllerName = 'App\\Controllers\\'.ucfirst($this->_request_controller) . "Controller";
+                
+//               var_dump($controllerName);
                 $actionName = $this->_request_action . "Action";
 
-                if (!class_exists($controllerName)) {
+                if (!class_exists('App\Controllers\IndexController')) {
                     $this->makeError("Not Found: The requested URL was not found on this server.", 404);
                     MyLogger::log('request controller doesn`t exist', MyLogger::ERROR);
                     return;
@@ -247,7 +258,7 @@ class Application
     private function htmlEscape($data)
     {
         if (is_object($data)) {
-            $newObj = new stdClass();
+            $newObj = new \stdClass();
             foreach ($data as $property => $value) {
                 $newValue = $this->htmlEscape($value);
                 $newObj->{$property} = $newValue;

@@ -1,5 +1,5 @@
 <?php
-namespace App\Models\DBManager;
+namespace App\Models;
 
 class DBManager
 {
@@ -17,14 +17,14 @@ class DBManager
 
     public function connectPDO()
     {
-        $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false,
-        ];
-
+//        $options = [
+//            PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+//            PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+//            PDO::ATTR_EMULATE_PREPARES => false,
+//        ];
+        $options = [];
         try {
-            $this->pdo = new PDO($this->config['db_pdo'], $this->config['db_username'], $this->config['db_password']);
+            $this->pdo = new \PDO($this->config['db_pdo'], $this->config['db_username'], $this->config['db_password']);
         } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int) $e->getCode());
         }

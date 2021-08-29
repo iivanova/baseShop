@@ -1,6 +1,7 @@
 <?php
-namespace App\Models\CartModel;
-class CartModel extends BaseController
+namespace App\Models;
+
+class CartModel
 {
 
     protected $tableName = 'cart';

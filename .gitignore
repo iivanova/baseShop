@@ -1,4 +1,3 @@
 mysql/
 app_copy*
 app/.git/
-app/composer.json

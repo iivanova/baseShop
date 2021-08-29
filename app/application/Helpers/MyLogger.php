@@ -1,5 +1,5 @@
 <?php
-namespace App\Helpers\MyMogger;
+namespace App\Helpers;
 
 class MyLogger {
 
@@ -32,7 +32,7 @@ class MyLogger {
                 
             }
 
-            $date = new DateTime();
+            $date = new \DateTime();
             $dateStr = $date->format('Y-m-d H:i:s');
             $messageToLog = "\n" . $dateStr . " " . $messageType . " (function " . $funcName . " : URL: " . $request_uri .  " ): " . $message . "\n";
 
