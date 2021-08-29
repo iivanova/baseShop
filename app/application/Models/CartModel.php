@@ -45,7 +45,6 @@ class CartModel
                 . " LEFT JOIN product p on p.id=cp.product_id "
                 . " LEFT JOIN product_discounts pd on pd.product_id=p.id "
                 . " WHERE c.id=?";
-
         $items = $this->db->query($sql, [$cartId]);
         return $items;
     }
@@ -63,9 +62,14 @@ class CartModel
             }
             $total += $subtotal;
         }
+        $this->updateCartTotal($cartId, $total);
         return $total;
     }
 
+    private function updateCartTotal($cartId, $total){
+        $sql =" UPDATE cart SET sum_total=? where id=?";
+        $this->db->exec($sql,[$total,$cartId]);
+    } 
     public function addToCart($data)
     {
         if (isset($data['productId'], $data['cartId'])) {
