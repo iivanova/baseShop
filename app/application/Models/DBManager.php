@@ -17,12 +17,12 @@ class DBManager
 
     public function connectPDO()
     {
-//        $options = [
-//            PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-//            PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-//            PDO::ATTR_EMULATE_PREPARES => false,
-//        ];
-        $options = [];
+        $options = [
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+            \PDO::ATTR_EMULATE_PREPARES => false,
+        ];
+
         try {
             $this->pdo = new \PDO($this->config['db_pdo'], $this->config['db_username'], $this->config['db_password']);
         } catch (\PDOException $e) {
