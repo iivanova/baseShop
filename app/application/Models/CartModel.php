@@ -52,10 +52,12 @@ class CartModel
 
     public function getCartItemsAndPromotions($cartId)
     {
-        $sql = "SELECT p.*, cp.quantity, pd.* FROM cart_products cp"
+        $sql = "SELECT p.id, p.name, p.price, cp.quantity, pd.items_count, pd.reduced_price "
+                . "FROM cart_products cp"
                 . " LEFT JOIN product p on p.id=cp.product_id "
                 . " LEFT JOIN product_discounts pd on pd.product_id=p.id "
                 . " WHERE cp.cart_id=?";
+
         $items = $this->db->query($sql, [$cartId]);
         return $items;
     }
