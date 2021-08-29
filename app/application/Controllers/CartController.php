@@ -25,8 +25,7 @@ class CartController extends BaseController
 
     public function indexAction()
     {
-        $this->view->products = $this->cartModel->getCartItems($this->cartId);
-        $this->view->cart_total = $this->calculateCartTotal();
+        $this->getCartData();
     }
 
     public function getCart()
@@ -78,11 +77,12 @@ class CartController extends BaseController
             $this->Session->destroy();
             $this->view->message = "Your cart is checkouted. Thank you for your purchase";
         }
-
-        $this->view->products = $this->cartModel->getCartItems($this->cartId);
-        $this->view->cart_total = $this->calculateCartTotal();
-    
-        
+        $this->getCartData();
     }
 
+    public function getCartData(){
+        $this->view->products = $this->cartModel->getCartItems($this->cartId);
+        $this->view->cart_total = $this->calculateCartTotal();
+        
+    }
 }

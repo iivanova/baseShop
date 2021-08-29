@@ -14,32 +14,44 @@ class CartModel
 
     public function getCartItems($cartId)
     {
+        $items = $this->getCartItemsAndPromotions($cartId);
 
-//        $sql = "SELECT p.*, cp.quantity FROM cart c"
-//                . " LEFT JOIN cart_products cp on cp.cart_id=c.id "
-//                . " LEFT JOIN product p on p.id=cp.product_id "
-//                . " WHERE c.id=?";
-        $sql = "SELECT p.*, cp.quantity FROM cart_products cp"
-                . " LEFT JOIN product p on p.id=cp.product_id "
-                . " WHERE cp.cart_id=?";
-        $items = $this->db->query($sql, [$cartId]);
+        if(!empty($items))
+        {
+            $total = $this->calculateTotal($cartId, $items);
+        }
+
         return $items;
     }
 
+    public function calculateTotal($cartId, &$items = [])
+    {
+        if(empty($items)){
+            $items = $this->getCartItemsAndPromotions($cartId);
+        }
+        $total = 0;
+        foreach ($items as $k=>$item) {
+            
+            if (isset($item['reduced_price']) && $item['reduced_price']) {
+                $subtotal = floor($item['quantity'] / $item['items_count']) * $item['reduced_price'] + ($item['quantity'] % $item['items_count']) * $item['price'];
+            } else {
+                $subtotal = $item['quantity'] * $item['price'];
+            }
+            $items[$k]['item_total_sum'] = $subtotal;
+            $total += $subtotal;
+        }
+        $this->updateCartTotal($cartId, $total);
+        return $total;
+    }
+    
     public function initCart()
     {
         $sql = "INSERT INTO {$this->tableName} (`id`, `date_created`) VALUES (NULL, current_timestamp()) ";
         return $this->db->insert($sql);
     }
 
-    public function calculateCartTotal($cartId)
-    {
-        $items = $this->getCartItems($cartId);
-    }
-
     public function getCartItemsAndPromotions($cartId)
     {
-
         $sql = "SELECT p.*, cp.quantity, pd.* FROM cart c"
                 . " LEFT JOIN cart_products cp on cp.cart_id=c.id "
                 . " LEFT JOIN product p on p.id=cp.product_id "
@@ -49,22 +61,6 @@ class CartModel
         return $items;
     }
 
-    public function calculateTotal($cartId)
-    {
-
-        $items = $this->getCartItemsAndPromotions($cartId);
-        $total = 0;
-        foreach ($items as $item) {
-            if (isset($item['reduced_price']) && $item['reduced_price']) {
-                $subtotal = floor($item['quantity'] / $item['items_count']) * $item['reduced_price'] + ($item['quantity'] % $item['items_count']) * $item['price'];
-            } else {
-                $subtotal = $item['quantity'] * $item['price'];
-            }
-            $total += $subtotal;
-        }
-        $this->updateCartTotal($cartId, $total);
-        return $total;
-    }
 
     private function updateCartTotal($cartId, $total){
         $sql =" UPDATE cart SET sum_total=? where id=?";

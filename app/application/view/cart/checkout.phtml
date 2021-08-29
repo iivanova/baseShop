@@ -16,7 +16,7 @@
                 <td class="col-lg-3"><?= $product['name'] ?></td>
                 <td class="col-lg-3"><?= $product['quantity'] ?></td>
                 <td class="col-lg-3"><?= $product['price'] ?></td>
-                <td class="col-lg-3">Total:</td>
+                <td class="col-lg-3"><?= isset($product['item_total_sum'])?$product['item_total_sum']:''?></td>
 
             </tr>
         <?php endforeach; ?>
