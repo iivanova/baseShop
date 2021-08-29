@@ -1,4 +1,5 @@
 <?php
+namespace App\Models\DBManager;
 
 class DBManager
 {

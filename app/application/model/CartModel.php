@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models\CartModel;
 class CartModel extends BaseController
 {
 

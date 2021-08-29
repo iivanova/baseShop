@@ -1,4 +1,5 @@
 <?php
+namespace App\Controllers\BaseController;
 
 abstract class BaseController
 {

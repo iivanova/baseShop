@@ -6,8 +6,14 @@
  * and open the template in the editor.
  */
 
+define("APP_PATH", realpath(__DIR__ ."/.."));
 
-require_once '../application/Application.php';
+include ("../vendor/autoload.php");
+
+use App\Application;
+
+
+//require_once '../application/Application.php';
 
 $app = new Application();
 $app->run();
